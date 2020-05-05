@@ -1,4 +1,6 @@
 # SIMPLE CRC GENERATOR
+## Status
+Work in progress
 ## Technology
 Flask + jQuery for AJAX features
 ## Instalation
@@ -7,3 +9,5 @@ Flask + jQuery for AJAX features
 * pip install -r requirements.txt
 * python app.py
 * localhost:5000
+## Usage
+#TODO
