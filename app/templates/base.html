@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CRC GENERATOR</title>
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+    <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
+    <body>
+        <h1>CRC GENERATOR</h1>
+        <form>
+            {{ form.hidden_tag() }}
+            <p>
+                <label for="entryData">Input data</label>
+                <br>
+                <textarea id="entryData" name="entryData"></textarea>
+                <br>
+            </p>
+            <p>
+                {{ form.crcType.label }}
+                <br>
+                {{ form.crcType }}
+            </p>
+            <p>
+                <button type="button" onclick="generateCrc()">TEST</button>
+            </p>
+        </form>
+        <p>
+            <label for="1">Generated CRC</label>
+            <img id="loading" src="{{ url_for('static', filename='img/ajax-loader.gif') }}" hidden=True alt="loader">
+            <div id="1"></div>
+        </p>
+    </body>
+</html>
