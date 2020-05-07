@@ -29,8 +29,6 @@ def encode(data):
                 print(str(e))
                 return str(e)
         suma += 1
-    
-    print(f"FIRST: \n{coded}")
 
     redundancy = 0
 
@@ -41,8 +39,5 @@ def encode(data):
             else:
                 coded[x] = 1
             redundancy += 1
-    
-    print(f"SECOND: \n{coded}")
     result = ''.join(map(str, coded))
-    print(result)
     return result

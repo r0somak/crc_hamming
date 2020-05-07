@@ -21,9 +21,9 @@ def generate_crc():
     res = crc_func(bit_input)
 
     bit_str = f"{res:08b}"
-    # rbit_str = bit_str[::-1]
-    # rbit_str = ''.join([rbit_str[i:i+8].ljust(8, '0') for i in range(0, len(rbit_str), 8)])
-    # bit_str = rbit_str[::-1]
+    rbit_str = bit_str[::-1]
+    rbit_str = ''.join([rbit_str[i:i+8].ljust(8, '0') for i in range(0, len(rbit_str), 8)])
+    bit_str = rbit_str[::-1]
 
 
     binput = "".join(f"{ord(i):08b}" for i in request.values['inputData'])

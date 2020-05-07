@@ -15,7 +15,7 @@ function colorizeHamming(str, id){
                 coloredHamming += str[i];
             }
         }
-        var s1 = document.getElementById(id);
+        let s1 = document.getElementById(id);
         s1.innerHTML = coloredHamming;
 }
 
