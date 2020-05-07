@@ -8,7 +8,9 @@ lstCrc = [
     ('crc-8-darc', 'crc-8-darc'),
     ('crc-8-i-code', 'crc-8-i-code'),
     ('crc-8-itu', 'crc-8-itu'),
+    ('crc-16', 'crc-16'),
     ('kermit', 'kermit'),
+    ('crc-32', 'crc-32'),
     ('crc-64-jones', 'crc-64-jones'),
     ('crc-64-we', 'crc-64-we'),
 ]

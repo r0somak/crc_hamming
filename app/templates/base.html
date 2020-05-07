@@ -5,6 +5,7 @@
     </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
     <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prop.css') }}">
     <body>
         <h1>CRC GENERATOR</h1>
         <form>
@@ -21,13 +22,37 @@
                 {{ form.crcType }}
             </p>
             <p>
-                <button type="button" onclick="generateCrc()">TEST</button>
+                <button type="button" onclick="generateCrc()">Generuj CRC</button>
             </p>
         </form>
         <p>
-            <label for="1">Generated CRC</label>
             <img id="loading" src="{{ url_for('static', filename='img/ajax-loader.gif') }}" hidden=True alt="loader">
-            <div id="1"></div>
+            <table id="datatable">
+                <tr>
+                  <th id="label1">Input data</th>
+                </tr>
+                <tr>
+                  <td id="0"></td>
+                </tr>
+                <tr>
+                    <th>Generated CRC</th>
+                  </tr>
+                <tr>
+                  <td id="1"></td>
+                </tr>
+                <tr>
+                    <th>Generated input + CRC</th>
+                  </tr>
+                <tr>
+                  <td id="2"></td>
+                </tr>
+                <tr>
+                    <th>Hamming(input + CRC)</th>
+                  </tr>
+                <tr>
+                  <td id="3"></td>
+                </tr>
+              </table>
         </p>
     </body>
 </html>
