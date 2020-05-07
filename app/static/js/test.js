@@ -4,7 +4,7 @@ $( document ).ajaxStart(function() {
     $( "#loading" ).hide();
   });
 
-function colorize(str){
+function colorizeHamming(str, id){
         let coloredHamming = "";
         let potega = 1;
         for (let i = 0; i<str.length; i++) {
@@ -15,7 +15,7 @@ function colorize(str){
                 coloredHamming += str[i];
             }
         }
-        var s1 = document.getElementById("3");
+        var s1 = document.getElementById(id);
         s1.innerHTML = coloredHamming;
 }
 
@@ -34,7 +34,7 @@ function generateCrc(){
         $("#0").text(response['bitInputData']);
         $("#1").text(response['crc']);
         $("#2").text(response['inp_crc']);
-        colorize(response['hamming'])
+        colorizeHamming(response['hamming'], 3)
 
     }).fail(function(){
         $("#0").text("CHINA BAD");
