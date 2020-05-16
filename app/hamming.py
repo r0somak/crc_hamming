@@ -1,7 +1,9 @@
-import math
 import numpy as np
 
-def encode(data):
+def encode(data:str) -> str:
+    '''
+    Applies Hamming encoding to given bit string.
+    '''
     lst_bin_data = [int(x) for x in data]
     bit_count = len(lst_bin_data)
     control_bits = [(1 << i)-1 for i in range(bit_count) if (1 << i) <= bit_count]
