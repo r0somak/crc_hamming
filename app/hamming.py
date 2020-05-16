@@ -1,43 +1,27 @@
+import math
+import numpy as np
+
 def encode(data):
-    data_bits = [int(i) for i in data]
-    i = 0
-    redundancy = 0
-    suma = 0
-
-    while i < len(data_bits):
-        if (2**redundancy) - 1 == suma:
-            redundancy += 1
+    lst_bin_data = [int(x) for x in data]
+    bit_count = len(lst_bin_data)
+    control_bits = [(1 << i)-1 for i in range(bit_count) if (1 << i) <= bit_count]
+    cntrl_len = len(control_bits)
+    schema = lst_bin_data
+    for i in control_bits:
+        schema.insert(i, None)
+    one_pos = []
+    for i in range(len(schema)):
+        if schema[i] == 1:
+            bits = format(i+1, 'b')
+            if len(bits) < cntrl_len:
+                bits = bits.zfill(cntrl_len)
+            one_pos.append([int(b) for b in bits])
+    one_pos.reverse()
+    a = np.array(one_pos)
+    control_bits.reverse()
+    for i in range(cntrl_len):
+        if np.sum(a[:,i]) % 2 == 0:
+            schema[control_bits[i]] = 0
         else:
-            i += 1
-        suma += 1
-
-    coded = [None] * suma
-    mask = 0
-    redundancy = 0
-    i = 0
-    suma = 0
-    while i < len(data):
-        if (2**redundancy) - 1 == suma:
-            redundancy += 1
-        else:
-            try:
-                coded[suma] = data_bits[i]
-                if data_bits[i] == 1: 
-                    mask = mask ^ (suma+1)
-                i+=1
-            except Exception as e:
-                print(str(e))
-                return str(e)
-        suma += 1
-
-    redundancy = 0
-
-    for x in range(0, suma+1):
-        if 2**redundancy - 1 == x:
-            if (mask & (1 << redundancy)) == 0:
-                coded[x] = 0
-            else:
-                coded[x] = 1
-            redundancy += 1
-    result = ''.join(map(str, coded))
-    return result
+            schema[control_bits[i]] = 1
+    return ''.join(map(str, schema))

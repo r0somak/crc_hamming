@@ -19,9 +19,9 @@ function colorizeHamming(str, id){
         s1.innerHTML = coloredHamming;
 }
 
-function generateCrc(){
+function generate_hamming(){
     $.ajax({
-        url : "http://localhost:5000/crc",
+        url : "http://localhost:5000/hamming",
         method : 'post',
         data : {
             inputData : $("#entryData").val(),

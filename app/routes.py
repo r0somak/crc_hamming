@@ -14,8 +14,8 @@ def create_form():
     print(f"FORM ERRORS: {crc_form.errors}")
     return render_template('base.html', form=crc_form)
 
-@app.route('/crc', methods=['POST'])
-def generate_crc():
+@app.route('/hamming', methods=['POST'])
+def generate_hamming():
     crc_func = crcmod.predefined.mkCrcFun(request.values['crcType'])
     bit_input = bytes(request.values['inputData'], 'utf-8')
     res = crc_func(bit_input)
@@ -35,5 +35,5 @@ def generate_crc():
         "crc": bit_str,
         "bitInputData": binput_8,
         "inp_crc": inp_crc,
-        "hamming": hamming.encode(inp_crc)
+        "hamming": hamming.encode(inp_crc),
     })
