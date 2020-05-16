@@ -1,12 +1,12 @@
-import crcmod.predefined
-
 from flask import render_template
 from flask import jsonify
 from flask import redirect
 from flask import request
+
 from app import app
 from app.form import CrcForm
 from app import hamming
+from app.utils import generate_crc, zfill_crc
 
 @app.route('/', methods=['GET'])
 def create_form():
@@ -16,23 +16,17 @@ def create_form():
 
 @app.route('/hamming', methods=['POST'])
 def generate_hamming():
-    crc_func = crcmod.predefined.mkCrcFun(request.values['crcType'])
-    bit_input = bytes(request.values['inputData'], 'utf-8')
-    res = crc_func(bit_input)
-
-    bit_str = f"{res:08b}"
-    rbit_str = bit_str[::-1]
-    rbit_str = ''.join([rbit_str[i:i+8].ljust(8, '0') for i in range(0, len(rbit_str), 8)])
-    bit_str = rbit_str[::-1]
-
+    crc = generate_crc(request.values['inputData'], request.values['crcType'])
+    crc = zfill_crc(crc)
 
     binput = "".join(f"{ord(i):08b}" for i in request.values['inputData'])
+    #split bit string to 8bit chunks
     binput_8 = ' '.join([binput[i:i+8] for i in range(0, len(binput), 8)])
 
-    inp_crc = binput + bit_str
+    inp_crc = binput + crc
 
     return jsonify({
-        "crc": bit_str,
+        "crc": crc,
         "bitInputData": binput_8,
         "inp_crc": inp_crc,
         "hamming": hamming.encode(inp_crc),

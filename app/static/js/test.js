@@ -19,7 +19,7 @@ function colorizeHamming(str, id){
         s1.innerHTML = coloredHamming;
 }
 
-function generate_hamming(){
+function hamming(){
     $.ajax({
         url : "http://localhost:5000/hamming",
         method : 'post',
