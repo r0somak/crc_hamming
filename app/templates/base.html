@@ -22,12 +22,12 @@
                 {{ form.crcType }}
             </p>
             <p>
-                <button type="button" onclick="hamming()">Generuj CRC</button>
+                <button type="button" onclick="hamming()">ENCODE</button>
             </p>
         </form>
         <p>
             <img id="loading" src="{{ url_for('static', filename='img/ajax-loader.gif') }}" hidden=True alt="loader">
-            <table id="datatable">
+            <table id="datatable" hidden=True>
                 <tr>
                   <th id="label1">Input data</th>
                 </tr>
@@ -52,6 +52,21 @@
                 <tr>
                   <td id="3"></td>
               </table>
+        </p>
+        <p>
+          <label for="corBits">Corrupt bits</label>
+          <br>
+          <textarea id="corBits" name="corruptedBits" placeholder="Enter positions of bits (0, n> to corrupt separatrd by commas"></textarea>
+          <br>
+          <button type="button" onclick="corrupt()">CORRUPT</button>
+          <table hidden=True id="corTable">
+            <tr>
+              <th id="label1">Corrupted data</th>
+            </tr>
+            <tr>
+              <td id="4"></td>
+            </tr>
+          </table>
         </p>
     </body>
 </html>
