@@ -47,15 +47,12 @@ def corrupt_data():
     positions.sort()
     if positions[-1] > len(data):
         return make_response(u"Last position exceeds input data length.", 400)
-    lst_pos = list(positions)
-    for i in range(len(lst_pos)):
-        if lst_data[lst_pos[i]] == 1:
-            lst_data[lst_pos[i]] = 0
+    for i in positions:
+        if lst_data[i] == '1':
+            lst_data[i] = '0'
         else:
-            lst_data[lst_pos[i]] = 1
-    lst_data = [str(i) for i in lst_data]
+            lst_data[i] = '1'
     new_data = ''.join(lst_data)
-    print(positions)
     return make_response(jsonify({
         "corruptedData": new_data,
         "corruptedPositions": positions,
