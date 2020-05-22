@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>CRC GENERATOR</title>
+        <title>HAMMING CODE GENERATOR</title>
     </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
     <script src="{{ url_for('static', filename='js/test.js') }}" defer></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prop.css') }}">
     <body>
-        <h1>CRC GENERATOR</h1>
+        <h1>HAMMING CODE GENERATOR</h1>
         <form>
             {{ form.hidden_tag() }}
             <p>
@@ -25,9 +25,9 @@
                 <button type="button" onclick="hamming()">ENCODE</button>
             </p>
         </form>
-        <p>
-            <img id="loading" src="{{ url_for('static', filename='img/ajax-loader.gif') }}" hidden=True alt="loader">
-            <table id="datatable" hidden=True>
+        <img id="loading" src="{{ url_for('static', filename='img/ajax-loader.gif') }}" hidden=True alt="loader">
+        <div id="data" hidden=True>
+            <table id="datatable">
                 <tr>
                   <th id="label1">Input data</th>
                 </tr>
@@ -52,21 +52,72 @@
                 <tr>
                   <td id="3"></td>
               </table>
-        </p>
-        <p>
+            
           <label for="corBits">Corrupt bits</label>
           <br>
           <textarea id="corBits" name="corruptedBits" placeholder="Enter positions of bits (0, n> to corrupt separatrd by commas"></textarea>
           <br>
           <button type="button" onclick="corrupt()">CORRUPT</button>
-          <table hidden=True id="corTable">
-            <tr>
-              <th id="label1">Corrupted data</th>
-            </tr>
-            <tr>
-              <td id="4"></td>
-            </tr>
-          </table>
+        </div>
+        <p>
+          <div id="corrupt" hidden=True>
+            <table id="corTable">
+              <tr>
+                <th id="label1">Corrupted data</th>
+              </tr>
+              <tr>
+                <td id="4"></td>
+              </tr>
+            </table>
+            <button id="fixButton" type="button" onclick="fix()">FIX</button>
+          </div>
+
+          <div id="fixed" hidden=True>
+            <table id="fixTable">
+              <tr>
+                <th id="label2">SPOTTED CORRUPTED BIT POS (0,n)</th>
+              </tr>
+              <tr>
+                <td id="5"></td>
+              </tr>
+              <tr>
+                <th id="label3">FIXED DATA</th>
+              </tr>
+              <tr>
+                <td id="6"></td>
+              </tr>
+            </table>
+            <button id="decodeButton" type="button" onclick="decode()" >DECODE</button>
+          </div>
+
+          <div id="decode" hidden=True>
+            <table id="decodeTable">
+              <tr>
+                <th id="label4">ORIGINAL BIN DATA</th>
+              </tr>
+              <tr>
+                <td id="7"></td>
+              </tr>
+              <tr>
+                <th id="label8">DECODED BIN DATA</th>
+              </tr>
+              <tr>
+                <td id="8"></td>
+              </tr>
+              <tr>
+                <th id="label9">STATUS</th>
+              </tr>
+              <tr>
+                <td id="9"></td>
+              </tr>
+              <tr>
+                <th id="label9">DECODED STRING</th>
+              </tr>
+              <tr>
+                <td id="10"></td>
+              </tr>
+            </table>
+          </div>
         </p>
     </body>
 </html>

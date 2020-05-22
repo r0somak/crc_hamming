@@ -27,12 +27,13 @@ def generate_hamming():
     binput_8 = ' '.join([binput[i:i+8] for i in range(0, len(binput), 8)])
 
     inp_crc = binput + crc
-
+    control_bits, output = hamming.encode(inp_crc)
     return make_response(jsonify({
         "crc": crc,
         "bitInputData": binput_8,
         "inp_crc": inp_crc,
-        "hamming": hamming.encode(inp_crc),
+        "hamming": output,
+        "ctrl_pos": control_bits,
     }), 200)
 
 @app.route('/corrupt', methods=['POST'])
@@ -56,4 +57,46 @@ def corrupt_data():
     return make_response(jsonify({
         "corruptedData": new_data,
         "corruptedPositions": positions,
+    }), 200)
+
+@app.route('/fix', methods=['POST'])
+def fix_data():
+    data = request.values['inputData']
+    cor_pos, output = hamming.fix(data)
+    return make_response(jsonify({
+        "corPos": cor_pos,
+        "output": output,
+    }), 200)
+
+
+@app.route('/decode', methods=['POST'])
+def decode_data():
+    data = list(request.values['inputData'])
+    ctrl_pos = [(1 << i)-1 for i in range(len(data)) if (1 << i) <= len(data)]
+    crc = request.values['crc_code']
+    original = request.values['original_data']
+    original = original.replace(' ', '')
+    for i in ctrl_pos:
+        data[i] = 'd'
+    data = ''.join(data)
+    data = data.replace('d', '')
+
+    data = data[0:-len(crc)]
+    if original == data:
+        message = "Success in decoding data"
+    else:
+        message = "Failure in decoding data"
+    data_8 = ' '.join([data[i:i+8] for i in range(0, len(data), 8)])
+    bin_val = data_8.split()
+    ascii_string = ""
+    for binary in bin_val:
+        inti = int(binary, 2)
+        char = chr(inti)
+        ascii_string += char
+    
+    return make_response(jsonify({
+        "data": data,
+        "original": original,
+        "msg": message,
+        "ascii": ascii_string
     }), 200)
